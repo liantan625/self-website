@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://your-project.pages.dev/</loc>
+  </url>
+  <url>
+    <loc>https://your-project.pages.dev/projects</loc>
+  </url>
+  <url>
+    <loc>https://your-project.pages.dev/blog</loc>
+  </url>
+  <url>
+    <loc>https://your-project.pages.dev/about</loc>
+  </url>
+  <url>
+    <loc>https://your-project.pages.dev/blog/building-for-boring-systems</loc>
+  </url>
+  <url>
+    <loc>https://your-project.pages.dev/blog/fullstack-with-a-backend-bias</loc>
+  </url>
+</urlset>
