@@ -5,6 +5,7 @@ import { SiteLayout } from "./components/SiteLayout";
 const HomePage = lazy(() => import("./pages/HomePage"));
 const ProjectsPage = lazy(() => import("./pages/ProjectsPage"));
 const BlogPage = lazy(() => import("./pages/BlogPage"));
+const BlogCmsPage = lazy(() => import("./pages/BlogCmsPage"));
 const BlogPostPage = lazy(() => import("./pages/BlogPostPage"));
 const AboutPage = lazy(() => import("./pages/AboutPage"));
 
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/cms" element={<BlogCmsPage />} />
           <Route path="/blog/:slug" element={<BlogPostPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />

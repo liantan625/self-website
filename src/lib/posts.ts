@@ -59,7 +59,7 @@ function parseFrontmatter(raw: string) {
   return { data, content };
 }
 
-export function getAllPosts() {
+export function getRepoPosts() {
   const posts = Object.entries(modules).map(([path, raw]) => {
     const { data, content } = parseFrontmatter(raw);
     const filename = path.split("/").pop() ?? "";
@@ -73,12 +73,16 @@ export function getAllPosts() {
       tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
       draft: Boolean(data.draft),
       body: content,
+      source: "repo",
     } satisfies BlogPost;
   });
 
   return sortPosts(posts.filter((post) => !post.draft));
 }
 
-export function getPostBySlug(slug: string) {
-  return getAllPosts().find((post) => post.slug === slug);
+export function getRepoPostBySlug(slug: string) {
+  return getRepoPosts().find((post) => post.slug === slug);
 }
+
+export const getAllPosts = getRepoPosts;
+export const getPostBySlug = getRepoPostBySlug;

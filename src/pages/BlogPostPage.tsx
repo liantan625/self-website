@@ -3,11 +3,33 @@ import remarkGfm from "remark-gfm";
 import { Link, useParams } from "react-router-dom";
 import { Seo } from "../components/Seo";
 import { Tag } from "../components/Tag";
-import { getPostBySlug } from "../lib/posts";
+import { usePublishedPost } from "../hooks/useBlogPosts";
 
 export default function BlogPostPage() {
   const { slug = "" } = useParams();
-  const post = getPostBySlug(slug);
+  const { post, loading, error } = usePublishedPost(slug);
+
+  if (loading && !post) {
+    return (
+      <div className="space-y-4 rounded-xl border border-border bg-white p-6">
+        <Seo title="Loading Post" description="Loading blog entry." path={`/blog/${slug}`} />
+        <p className="text-sm text-text-muted">Loading post…</p>
+      </div>
+    );
+  }
+
+  if (error && !post) {
+    return (
+      <div className="space-y-4 rounded-xl border border-red-200 bg-white p-6">
+        <Seo title="Blog Unavailable" description="Blog post could not be loaded." path={`/blog/${slug}`} />
+        <h1 className="text-2xl font-semibold text-text">Blog unavailable</h1>
+        <p className="text-sm text-red-700">{error}</p>
+        <Link to="/blog" className="text-sm text-accent hover:underline">
+          Back to blog
+        </Link>
+      </div>
+    );
+  }
 
   if (!post) {
     return (
