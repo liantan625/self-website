@@ -71,9 +71,10 @@ export function useCmsPosts(includeDrafts = true, enabled = true) {
 
 export function usePublishedPosts() {
   const cms = useCmsPosts(false, true);
+  const cmsPosts = Array.isArray(cms.posts) ? cms.posts : EMPTY_POSTS;
 
   return {
-    posts: useMemo(() => sortByDate([...repoPosts, ...cms.posts]), [cms.posts]),
+    posts: useMemo(() => sortByDate([...repoPosts, ...cmsPosts]), [cmsPosts]),
     loading: cms.loading,
     error: cms.error,
   };
@@ -100,7 +101,10 @@ export function useCmsSession() {
         if (cancelled) {
           return;
         }
-        setSession(nextSession);
+        setSession({
+          authenticated: Boolean(nextSession?.authenticated),
+          username: typeof nextSession?.username === "string" ? nextSession.username : null,
+        });
         setError("");
         setLoading(false);
       },
@@ -125,7 +129,10 @@ export function useCmsSession() {
     error,
     login: async (username: string, password: string) => {
       const nextSession = await loginCms(username, password);
-      setSession(nextSession);
+      setSession({
+        authenticated: Boolean(nextSession?.authenticated),
+        username: typeof nextSession?.username === "string" ? nextSession.username : null,
+      });
       setError("");
       return nextSession;
     },

@@ -21,7 +21,7 @@ type BlogPostResponse = {
   title: string;
   date: string;
   excerpt: string;
-  tags: string[];
+  tags: string[] | null;
   draft: boolean;
   body: string;
   source?: "cms" | "repo";
@@ -60,15 +60,15 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 
 function normalizePost(post: BlogPostResponse): BlogPost {
   return {
-    slug: post.slug,
-    title: post.title,
-    date: post.date,
-    excerpt: post.excerpt,
-    tags: Array.isArray(post.tags) ? post.tags : [],
+    slug: String(post.slug ?? ""),
+    title: String(post.title ?? ""),
+    date: String(post.date ?? ""),
+    excerpt: String(post.excerpt ?? ""),
+    tags: Array.isArray(post.tags) ? post.tags.map(String) : [],
     draft: Boolean(post.draft),
-    body: post.body,
+    body: String(post.body ?? ""),
     source: "cms",
-    updatedAt: post.updatedAt,
+    updatedAt: typeof post.updatedAt === "string" ? post.updatedAt : undefined,
   };
 }
 
@@ -98,12 +98,12 @@ export function getErrorMessage(error: unknown) {
 
 export async function fetchPublishedCmsPosts() {
   const posts = await request<BlogPostResponse[]>("/posts");
-  return posts.map(normalizePost);
+  return Array.isArray(posts) ? posts.map(normalizePost) : [];
 }
 
 export async function fetchCmsPosts(includeDrafts = true) {
   const posts = await request<BlogPostResponse[]>(`/cms/posts?includeDrafts=${includeDrafts ? "true" : "false"}`);
-  return posts.map(normalizePost);
+  return Array.isArray(posts) ? posts.map(normalizePost) : [];
 }
 
 export async function saveCmsPost(post: BlogPostInput, previousSlug?: string | null) {
@@ -124,7 +124,12 @@ export async function deleteCmsPost(slug: string) {
 }
 
 export async function fetchCmsSession() {
-  return request<CmsSession>("/auth/session");
+  const session = await request<Partial<CmsSession> | null>("/auth/session");
+
+  return {
+    authenticated: Boolean(session?.authenticated),
+    username: typeof session?.username === "string" ? session.username : null,
+  };
 }
 
 export async function loginCms(username: string, password: string) {
