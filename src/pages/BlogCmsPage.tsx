@@ -30,6 +30,11 @@ function mapPostToInput(post: BlogPost): BlogPostInput {
 export default function BlogCmsPage() {
   const { session, loading: sessionLoading, error: sessionError, login, logout } = useCmsSession();
   const { posts: cmsPosts, loading: postsLoading, error: postsError, reload } = useCmsPosts(true, session.authenticated);
+  const safeSession = {
+    authenticated: Boolean(session?.authenticated),
+    username: typeof session?.username === "string" ? session.username : null,
+  };
+  const safeCmsPosts = Array.isArray(cmsPosts) ? cmsPosts : [];
   const [form, setForm] = useState<BlogPostInput>(() => createEmptyPostInput());
   const [originalSlug, setOriginalSlug] = useState<string | null>(null);
   const [error, setError] = useState("");
@@ -41,14 +46,14 @@ export default function BlogCmsPage() {
   const [loginPending, setLoginPending] = useState(false);
 
   useEffect(() => {
-    if (originalSlug && !cmsPosts.some((post) => post.slug === originalSlug)) {
+    if (originalSlug && !safeCmsPosts.some((post) => post.slug === originalSlug)) {
       setForm(createEmptyPostInput());
       setOriginalSlug(null);
     }
-  }, [cmsPosts, originalSlug]);
+  }, [originalSlug, safeCmsPosts]);
 
-  const draftCount = cmsPosts.filter((post) => post.draft).length;
-  const publishedCount = cmsPosts.length - draftCount;
+  const draftCount = safeCmsPosts.filter((post) => post.draft).length;
+  const publishedCount = safeCmsPosts.length - draftCount;
   const previewSlug = useMemo(() => slugifyPostValue(form.slug || form.title), [form.slug, form.title]);
 
   function updateField<Key extends keyof BlogPostInput>(key: Key, value: BlogPostInput[Key]) {
@@ -95,7 +100,7 @@ export default function BlogCmsPage() {
       return "That slug is already used by a repository-managed post.";
     }
 
-    if (slug !== originalSlug && cmsPosts.some((post) => post.slug === slug)) {
+    if (slug !== originalSlug && safeCmsPosts.some((post) => post.slug === slug)) {
       return "That slug is already used by another CMS post.";
     }
 
@@ -171,7 +176,7 @@ export default function BlogCmsPage() {
   }
 
   async function handleDelete(slug: string) {
-    const post = cmsPosts.find((item) => item.slug === slug);
+    const post = safeCmsPosts.find((item) => item.slug === slug);
     if (!post || !window.confirm(`Delete "${post.title}" from the CMS database?`)) {
       return;
     }
@@ -225,7 +230,7 @@ export default function BlogCmsPage() {
     );
   }
 
-  if (!session.authenticated) {
+  if (!safeSession.authenticated) {
     return (
       <div className="space-y-8">
         <Seo title="Blog CMS Login" description="Secure login for the blog CMS." path="/blog/cms" />
@@ -315,7 +320,7 @@ export default function BlogCmsPage() {
             <Badge>{repoPostCount} repo posts</Badge>
             <Badge>{publishedCount} CMS published</Badge>
             <Badge>{draftCount} CMS drafts</Badge>
-            <Badge>{session.username}</Badge>
+            <Badge>{safeSession.username ?? "unknown user"}</Badge>
             <button
               type="button"
               onClick={() => void handleLogout()}
@@ -496,8 +501,8 @@ export default function BlogCmsPage() {
               {postsError ? <p className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">{postsError}</p> : null}
               {postsLoading ? <p className="rounded-md border border-border bg-bg-subtle px-3 py-2 text-sm text-text-muted">Loading CMS posts…</p> : null}
               <div className="space-y-3">
-                {cmsPosts.length ? (
-                  cmsPosts.map((post) => (
+                {safeCmsPosts.length ? (
+                  safeCmsPosts.map((post) => (
                     <div key={post.slug} className="rounded-xl border border-border p-4">
                       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                         <div className="space-y-2">

@@ -28,7 +28,8 @@ services:
       CMS_DB_PASSWORD: self_website
       CMS_ADMIN_USERNAME: cmsadmin
       CMS_ADMIN_PASSWORD: change-me-now
-      CMS_ALLOWED_ORIGINS: http://localhost:5173,http://127.0.0.1:5173,http://100.95.137.108:5173
+      CMS_ALLOWED_ORIGINS: http://localhost:5173,http://127.0.0.1:5173,http://100.95.137.108:5173,http://192.168.100.21:5174,https://self-website-6rz.pages.dev
+      CMS_ALLOWED_ORIGIN_PATTERNS: http://192.168.*:5173,http://192.168.*:5174,http://10.*:5173,http://10.*:5174
     ports:
       - "8080:8080"
 

@@ -8,6 +8,7 @@ import { usePublishedPost } from "../hooks/useBlogPosts";
 export default function BlogPostPage() {
   const { slug = "" } = useParams();
   const { post, loading, error } = usePublishedPost(slug);
+  const tags = Array.isArray(post?.tags) ? post.tags : [];
 
   if (loading && !post) {
     return (
@@ -57,7 +58,7 @@ export default function BlogPostPage() {
           <h1 className="text-3xl font-semibold tracking-tight text-text">{post.title}</h1>
           <p className="text-base leading-7 text-text-muted">{post.excerpt}</p>
           <div className="flex flex-wrap gap-2">
-            {post.tags.map((tag) => (
+            {tags.map((tag) => (
               <Tag key={tag}>{tag}</Tag>
             ))}
           </div>
