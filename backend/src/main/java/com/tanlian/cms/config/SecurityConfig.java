@@ -57,8 +57,11 @@ public class SecurityConfig {
         .authenticationProvider(authenticationProvider)
         .authorizeHttpRequests(auth -> auth
             .requestMatchers("/api/auth/**").permitAll()
+            .requestMatchers("/auth/**").permitAll()
             .requestMatchers(HttpMethod.GET, "/api/posts/**").permitAll()
+            .requestMatchers(HttpMethod.GET, "/posts/**").permitAll()
             .requestMatchers("/api/cms/**").authenticated()
+            .requestMatchers("/cms/**").authenticated()
             .anyRequest().permitAll())
         .exceptionHandling(ex -> ex.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)));
 
