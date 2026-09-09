@@ -5,7 +5,14 @@ export type CmsSession = {
   username: string | null;
 };
 
-const API_BASE = import.meta.env.VITE_CMS_API_BASE ?? "/api";
+function normalizeApiBase(rawBase: string | undefined) {
+  const trimmedBase = rawBase?.trim() || "/api";
+  const withoutTrailingSlash = trimmedBase.replace(/\/+$/, "");
+
+  return withoutTrailingSlash.endsWith("/api") ? withoutTrailingSlash : `${withoutTrailingSlash}/api`;
+}
+
+const API_BASE = normalizeApiBase(import.meta.env.VITE_CMS_API_BASE);
 
 class ApiError extends Error {
   status: number;
