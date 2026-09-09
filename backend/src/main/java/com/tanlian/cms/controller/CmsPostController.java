@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 
 @RestController
-@RequestMapping("/api/cms/posts")
+@RequestMapping({"/api/cms/posts", "/cms/posts"})
 public class CmsPostController {
 
   private final BlogPostService blogPostService;
