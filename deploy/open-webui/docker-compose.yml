@@ -1,0 +1,26 @@
+services:
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    restart: unless-stopped
+    environment:
+      ENABLE_OLLAMA_API: "true"
+      ENABLE_OPENAI_API: "false"
+      WEBUI_AUTH: "true"
+      OLLAMA_BASE_URL: "${OLLAMA_BASE_URL:?Set OLLAMA_BASE_URL in .env}"
+      WEBUI_URL: "${WEBUI_URL:?Set WEBUI_URL in .env}"
+      WEBUI_SECRET_KEY: "${WEBUI_SECRET_KEY:?Set WEBUI_SECRET_KEY in .env}"
+      ENABLE_SIGNUP: "${ENABLE_SIGNUP:-false}"
+      WEBUI_ADMIN_EMAIL: "${WEBUI_ADMIN_EMAIL:-}"
+      WEBUI_ADMIN_PASSWORD: "${WEBUI_ADMIN_PASSWORD:-}"
+      WEBUI_ADMIN_NAME: "${WEBUI_ADMIN_NAME:-Admin}"
+      SCARF_NO_ANALYTICS: "true"
+      DO_NOT_TRACK: "true"
+      ANONYMIZED_TELEMETRY: "false"
+    ports:
+      - "127.0.0.1:3000:8080"
+    volumes:
+      - open_webui_data:/app/backend/data
+
+volumes:
+  open_webui_data:

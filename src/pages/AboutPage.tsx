@@ -16,7 +16,7 @@ export default function AboutPage() {
       <SectionHeader
         icon={<UserRound className="h-5 w-5" />}
         title="About"
-        subtitle="Final-year CS (Information Systems) student at Universiti Malaya, currently interning at Infinity Data Tech."
+        subtitle="DevOps Engineer / Site Reliability Engineer at Tencent, pivoting deeper into reliability, automation, and infrastructure."
       />
 
       <Card className="space-y-8 p-6 sm:p-8">
@@ -24,12 +24,14 @@ export default function AboutPage() {
           <h2 className="text-2xl font-semibold tracking-tight text-text">Background</h2>
           <div className="space-y-4 text-base leading-8 text-text-muted">
             <p>
-              I’m interested in backend engineering and data systems: the parts of a product that need to stay correct,
-              observable, and easy to extend without turning into a maintenance problem.
+              I’m currently working at Tencent as a DevOps Engineer / Site Reliability Engineer. My focus is shifting
+              toward production reliability: deployment automation, observability, incident readiness, and the systems
+              work that keeps services dependable under real operating conditions.
             </p>
             <p>
-              Recent work has ranged from admin tooling and analytics pipelines to product-facing React interfaces. I like
-              projects where I can connect application behavior to the underlying data model and system constraints.
+              My earlier work across backend systems, analytics pipelines, and product-facing React interfaces still
+              matters to how I approach operations. I like projects where application behavior, infrastructure, and
+              day-to-day maintainability all line up.
             </p>
           </div>
         </section>

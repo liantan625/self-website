@@ -12,21 +12,21 @@ export default function ProjectsPage() {
     <div className="space-y-10">
       <Seo
         title="Projects"
-        description="Backend, data engineering, and full-stack projects by Tan Li An."
+        description="DevOps, reliability, backend, and full-stack projects by Tan Li An."
         path="/projects"
       />
 
       <SectionHeader
         icon={<FolderKanban className="h-5 w-5" />}
         title="Projects"
-        subtitle="Work split between backend or data engineering systems and end-to-end product builds."
+        subtitle="Work across reliability-minded backend systems, automation, data pipelines, and end-to-end product builds."
       />
 
       <section className="space-y-4">
         <div className="space-y-2">
-          <h2 className="text-2xl font-semibold tracking-tight text-text">Backend / Data Engineering</h2>
+          <h2 className="text-2xl font-semibold tracking-tight text-text">DevOps / Backend / Data Systems</h2>
           <p className="max-w-3xl text-base leading-7 text-text-muted">
-            API, data, analytics, and systems work focused on correctness, queryability, and maintainability.
+            Systems work focused on reliability, automation, observability, correctness, and maintainability.
           </p>
         </div>
         <div className="grid gap-4">

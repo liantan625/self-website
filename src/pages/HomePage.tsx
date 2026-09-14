@@ -39,7 +39,7 @@ export default function HomePage() {
     <div className="space-y-6">
       <Seo
         title="Tan Li An | Portfolio + Blog"
-        description="Full-stack developer focused on backend and data engineering."
+        description="DevOps Engineer and Site Reliability Engineer at Tencent, focused on reliable systems, automation, and observability."
         path="/"
       />
 
@@ -53,19 +53,20 @@ export default function HomePage() {
                   <p className="text-sm font-medium uppercase tracking-[0.18em] text-text-muted">About Me</p>
                   <h1 className="text-4xl font-semibold tracking-tight text-text sm:text-5xl lg:text-6xl">Tan Li An</h1>
                   <h2 className="max-w-3xl text-xl font-medium leading-8 text-text sm:text-2xl">
-                    Final-year Computer Science student at Universiti Malaya, currently interning at Infinity Data Tech
-                    and aiming toward backend and data engineering work.
+                    DevOps Engineer / Site Reliability Engineer at Tencent, focused on keeping systems reliable,
+                    observable, and easier to operate at scale.
                   </h2>
                 </div>
 
                 <div className="max-w-3xl space-y-4 text-base leading-8 text-text-muted">
                   <p>
-                    I like building software that stays understandable after the first demo: admin tooling, APIs,
-                    product-facing React apps, and systems where the data model and the user experience actually line up.
+                    I like building the operational layer that helps software stay healthy after launch: automation,
+                    deployment workflows, monitoring, incident response, and the connective tissue between product teams
+                    and production systems.
                   </p>
                   <p>
-                    Most of my interest is in backend-heavy product work, but I value being able to ship the whole thing
-                    end to end when needed.
+                    My background in backend and full-stack product work still shapes how I think, but I am now pivoting
+                    deeper into DevOps, SRE, platform reliability, and infrastructure-minded engineering.
                   </p>
                 </div>
 
