@@ -27,7 +27,7 @@ export default function BlogPage() {
               <Badge>{safePosts.length} published</Badge>
             </div>
             <p className="max-w-3xl text-base leading-7 text-text-muted">
-              Writing on engineering tradeoffs, backend-heavy product work, and what I am learning as I build.
+              Writing on engineering tradeoffs, DevOps, reliability, backend systems, and what I am learning as I build.
             </p>
           </div>
         </div>
